@@ -1,0 +1,79 @@
+autoload -U compinit
+compinit
+
+case ${UID} in
+0)
+    PROMPT="%{[31m%}%n%%%{[m%} "
+    RPROMPT="[%~]"
+    PROMPT2="%B%{[31m%}%_#%{[m%}%b "
+    SPROMPT="%B%{[31m%}%r is correct? [n,y,a,e]:%{[m%}%b "
+    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    ;;
+*)
+    PROMPT="%{[31m%}%n%%%{[m%} "
+    RPROMPT="[%~]"
+    PROMPT2="%{[31m%}%_%%%{[m%} "
+    SPROMPT="%{[31m%}%r is correct? [n,y,a,e]:%{[m%} "
+    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    ;;
+esac
+
+HISTFILE=~/.zsh_history
+HISTSIZE=6000000
+SAVEHIST=6000000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+
+setopt auto_cd
+
+setopt auto_pushd
+
+setopt correct
+
+setopt list_packed
+
+setopt nolistbeep
+
+bindkey -e 
+
+case "${TERM}" in
+kterm*|xterm)
+    precmd() {
+        echo -ne "\033]0;${USER}@${HOST}\007"
+    }
+    ;;
+esac 
+
+export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
+export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
+zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+
+case "${OSTYPE}" in
+freebsd*|darwin*)
+  alias ls="ls -GF"
+  ;;
+linux*)
+  alias ls="ls -F --color"
+  ;;
+esac
+
+alias la='ls -a'
+alias ll='ls -l'
+alias lla='ls -al'
+
+function alc() {
+  if [ $# != 0 ]; then
+    w3m "http://eow.alc.co.jp/$*/UTF-8/?ref=sa"
+  else
+    w3m "http://www.alc.co.jp/"
+  fi
+}
