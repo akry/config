@@ -1,3 +1,6 @@
+PATH=$PATH:/opt/local/bin
+export PATH
+
 autoload -U compinit
 compinit
 
@@ -42,8 +45,6 @@ setopt correct
 setopt list_packed
 
 setopt nolistbeep
-
-bindkey -e 
 
 case "${TERM}" in
 kterm*|xterm)
