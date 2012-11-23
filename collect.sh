@@ -1,6 +1,15 @@
 #!/bin/bash
 
-cp ~/.tmux.conf ./tmux.conf
-cp ~/.zshrc ./zshrc
-cp ~/.vimrc ./vimrc
-cp ~/.emacs.el ./emacs.el
+set -e
+
+files='
+	tmux.conf
+	zshrc
+	vimrc
+	emacs.el
+'
+
+for file in ${files[@]}; do
+	echo "copy ~/.${file} to ./${file}"
+	cp ~/.${file} ./${file}
+done
