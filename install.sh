@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 files='
 	zshrc
 	emacs.el
@@ -9,6 +7,8 @@ files='
 	tmux.conf
 '
 for file in ${files[@]}; do
-	echo "move ${file} to ~/.${file}"
-	cp ./${file} ~/.${file}
+  [ ~/.${file} -ot ${file} ] && {
+	  echo "move ${file} to ~/.${file}"
+	  cp ./${file} ~/.${file}
+  } || :
 done
