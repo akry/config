@@ -4,4 +4,5 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set number
 set tabstop=2
 set shiftwidth=2
-set expandtab
+set noexpandtab
+set autoindent
