@@ -2,12 +2,7 @@
 
 set -e
 
-files='
-	tmux.conf
-	zshrc
-	vimrc
-	emacs.el
-'
+. ./files
 
 for file in ${files[@]}; do
 	echo "copy ~/.${file} to ./${file}"

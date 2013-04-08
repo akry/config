@@ -1,0 +1,7 @@
+files='
+	zshrc
+	emacs.el
+	vimrc
+	tmux.conf
+	gitconfig
+'
