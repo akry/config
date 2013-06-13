@@ -6,7 +6,7 @@ set -e
 
 for file in ${files[@]}; do
   [ ~/.${file} -ot ${file} ] && {
-	  # echo "move ${file} to ~/.${file}"
+	  echo "move ${file} to ~/.${file}"
 	  cp ./${file} ~/.${file}
   } || :
 done

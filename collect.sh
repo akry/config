@@ -5,6 +5,8 @@ set -e
 . ./files
 
 for file in ${files[@]}; do
-	echo "copy ~/.${file} to ./${file}"
-	cp ~/.${file} ./${file}
+	[ ~/.${file} -nt ${file} ] && {
+		echo "copy ~/.${file} to ./${file}"
+		cp ~/.${file} ./${file}
+	} || :
 done
