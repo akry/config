@@ -2,7 +2,7 @@
 
 set -e
 
-. ./files
+files=(`ls $(cd $(dirname $0); pwd)/config`)
 
 for file in ${files[@]}; do
   [ ~/.${file} -ot ${file} ] && {
