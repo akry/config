@@ -2,11 +2,12 @@
 
 set -e
 
-files=(`ls $(cd $(dirname $0); pwd)/config`)
+directory=$(cd $(dirname $0); pwd)
+files=(`ls ${directory}/config`)
 
 for file in ${files[@]}; do
-  [ ~/.${file} -ot ${file} ] && {
-	  echo "move ${file} to ~/.${file}"
-	  cp ./${file} ~/.${file}
-  } || :
+  if [ ~/.${file} -ot config/${file} -o ! -f ~/.${file} ]; then
+    echo "move config/${file} to ~/.${file}"
+    cp ./config/${file} ~/.${file}
+  fi
 done
