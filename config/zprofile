@@ -1,0 +1,41 @@
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# ssh settings
+
+SSH_ENV=${HOME}/.ssh/environment
+SSH_AGETNT_KEYS=${HOME}/.ssh/agent_keys
+
+function start_ssh_agent() {
+  # remote?
+  [[ -z "${SSH_CLIENT}" ]] || return 0
+
+  ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
+  chmod 0600 ${SSH_ENV}
+  . ${SSH_ENV} > /dev/null
+
+  if [[ -f ${HOME}/.ssh/agent_keys ]]; then
+    local privkey=
+    while read privkey; do
+      # expand a file path using "~" or "${HOME}"
+      eval privkey=${privkey}
+      [[ -f "${privkey}" ]] || continue
+      ssh-add ${privkey}
+    done < ${SSH_AGETNT_KEYS}
+  else
+    ssh-add
+  fi
+}
+
+# Source SSH agent settings if it is already running, otherwise start
+# up the agent proprely.
+
+if [[ -f "${SSH_ENV}" ]]; then
+  . ${SSH_ENV} > /dev/null
+  # ps ${SSH_AGENT_PID} doesn't work under cywgin
+  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+    start_ssh_agent
+  }
+else
+  start_ssh_agent
+fi
