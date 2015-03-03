@@ -5,7 +5,6 @@ set number
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set autoindent
 set encoding=utf-8
 set hlsearch
 set showmatch
@@ -38,7 +37,6 @@ set ruler
 
 set autoindent
 set smartindent
-set cindent
 
 scriptencoding utf-8
 highlight WhitespaceEOL ctermbg=red guibg=red
