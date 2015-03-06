@@ -1,5 +1,6 @@
 PATH=$PATH:/opt/local/bin
 export PATH
+export DISABLE_AUTO_TITLE=true
 
 autoload -U compinit
 compinit
@@ -10,16 +11,16 @@ case ${UID} in
     RPROMPT="[%~]"
     PROMPT2="%B%{[31m%}%_#%{[m%}%b "
     SPROMPT="%B%{[31m%}%r is correct? [n,y,a,e]:%{[m%}%b "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    # [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+    #     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
     ;;
 *)
     PROMPT="%{[31m%}%n%%%{[m%} "
     RPROMPT="[%~]"
     PROMPT2="%{[31m%}%_%%%{[m%} "
     SPROMPT="%{[31m%}%r is correct? [n,y,a,e]:%{[m%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    # [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+    #     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
     ;;
 esac
 
@@ -46,13 +47,13 @@ setopt list_packed
 
 setopt nolistbeep
 
-case "${TERM}" in
-kterm*|xterm)
-    precmd() {
-        echo -ne "\033]0;${USER}@${HOST}\007"
-    }
-    ;;
-esac 
+# case "${TERM}" in
+# kterm*|xterm)
+#     precmd() {
+#         echo -ne "\033]0;${USER}@${HOST}\007"
+#     }
+#     ;;
+# esac
 
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
@@ -71,12 +72,13 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -al'
 
-function alc() {
-  if [ $# != 0 ]; then
-    w3m "http://eow.alc.co.jp/$*/UTF-8/?ref=sa"
-  else
-    w3m "http://www.alc.co.jp/"
-  fi
-}
+# function alc() {
+#   if [ $# != 0 ]; then
+#     w3m "http://eow.alc.co.jp/$*/UTF-8/?ref=sa"
+#   else
+#     w3m "http://www.alc.co.jp/"
+#   fi
+# }
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+eval "$(rbenv init -)"
