@@ -1,4 +1,33 @@
-:syntax on
+"================================================
+" NeoBundle
+"================================================
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
+
+"================================================
+" colorscheme
+"================================================
+
+syntax on
+" if ($ft=='ruby')
+" colorscheme Tomorrow-Night
+" else
+"   colorscheme hybrid
+" endif
+colorscheme Tomorrow-Night-Bright
+
+"================================================
+" others
+"================================================
+
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set number
@@ -28,6 +57,7 @@ augroup END
 hi clear CursorLine
 hi CursorLine gui=underline
 highlight CursorLine ctermbg=black guibg=black
+hi Comment ctermfg=7
 
 set lazyredraw
 set ttyfast
